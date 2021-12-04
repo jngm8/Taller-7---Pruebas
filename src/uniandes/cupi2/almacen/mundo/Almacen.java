@@ -15,6 +15,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+import org.junit.Before;
+
 /**
  * Representa el almacén.
  */
@@ -64,6 +66,8 @@ public class Almacen
      * @param pArchivo Archivo que contiene los datos. pArchivo != null
      * @throws AlmacenException Si el archivo no cumple el formato especificado o si ocurre algún error leyendo el archivo.
      */
+    
+    @Before
     private void cargar( File pArchivo ) throws AlmacenException
     {
         try
