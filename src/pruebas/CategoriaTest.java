@@ -1,10 +1,17 @@
 package pruebas;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import uniandes.cupi2.almacen.mundo.AlmacenException;
 import uniandes.cupi2.almacen.mundo.Categoria;
+import uniandes.cupi2.almacen.mundo.Producto;
+
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 
@@ -14,24 +21,38 @@ public class CategoriaTest
 	private Categoria categoria;
 	
 	
-	@BeforeEach
-    public void Categoria( String pLinea, BufferedReader pLector ) throws AlmacenException
+	@Before
+    public void setup() throws AlmacenException
     {
-        super( TIPO, pLinea.split( ";;;" )[ 1 ], pLinea.split( ";;;" )[ 2 ] );
-        nodosHijos = new ArrayList<>( );
-        try
-        {
-            String datos[] = pLinea.split( ";;;" );
-            int numHijos = Integer.parseInt( datos[ 3 ] );
-            while( numHijos-- > 0 )
-            {
-                agregarNodo( identificador, crearNodo( pLector ) );
-            }
-        }
-        catch( Exception e )
-        {
-            throw new AlmacenException( "Error al leer la marca:\n" + e.getMessage( ) );
-        }
-
+		categoria = new Categoria("1234","Nicolas");
     }
+	
+	
+	@Test
+	public void testAgregarNodo()
+	{
+		assertTrue(categoria.darNodos().isEmpty());
+		
+		assertDoesNotThrow(()->{
+			categoria.agregarNodo("1234","Categoria","7482","Pedro");
+		});
+		assertFalse(categoria.darNodos().isEmpty());
+		 
+	}
+	
+	
+	@Test
+	
+	public void testDarProductos()
+	{
+		List<Producto> hola = categoria.darProductos();
+		
+		assertFalse(hola.isEmpty());
+		
+	}
+	
+	
+	
+	
+	
 }
